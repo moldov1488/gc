@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gustavo Code</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #FFA726; /* Laranja mais claro */
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        h1, h2 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        h1 {
+            color: #FFA726;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+        
+        h2 {
+            margin-top: 40px;
+            font-size: 1.5rem;
+        }
+        
+        blockquote {
+            border-left: 3px solid #FFA726;
+            padding-left: 15px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+        
+        li {
+            margin-bottom: 15px;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 40px 0;
+        }
+        
+        .post-date {
+            color: #777;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+        
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            margin: 0 10px;
+            color: #777;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #FFA726;
+        }
+
+        /* Bitcoin Widget Styles */
+        .bitcoin-widget-container {
+            --primary: #b08728;
+            --primary-dark: #8a6a1f;
+            --primary-light: #d8a942;
+            --telegram: #0088cc;
+            --telegram-dark: #006699;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --dark-light: #1e1e1e;
+            --text: #e0e0e0;
+            --text-light: #f5f5f5;
+            --text-muted: #9e9e9e;
+            --border: #333333;
+            --border-radius: 12px;
+            --positive: #2ecc71;
+            --negative: #e63946;
+            
+            display: block;
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: transparent !important;
+            width: 100%;
+            max-width: 100%;
+            margin: 40px auto;
+        }
+
+        .bitcoin-widget {
+            width: 100%;
+            max-width: 100%;
+            background: var(--dark-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            position: relative;
+        }
+
+        .widget-header {
+            padding: 16px;
+            background: rgba(176, 135, 40, 0.1);
+            border-bottom: 1px solid rgba(176, 135, 40, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bitcoin-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            color: var(--text-light);
+        }
+
+        .widget-title {
+            font-weight: 600;
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-light);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .price-container {
+            padding: 16px;
+        }
+
+        .price-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .currency-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .currency {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 120px;
+        }
+
+        .currency-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .currency-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .currency-name {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .price-value {
+            font-weight: 700;
+            font-size: 18px;
+            text-align: right;
+            min-width: 120px;
+            color: var(--text-light);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .price-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .price-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .positive {
+            color: var(--positive);
+        }
+
+        .negative {
+            color: var(--negative);
+        }
+
+        .widget-footer {
+            padding: 12px 16px;
+            background: var(--darker);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .widget-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .widget-footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .refresh-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .refresh-button:hover {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .sparkline-container {
+            width: 100%;
+            height: 40px;
+            margin-top: 8px;
+        }
+
+        .sparkline {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sparkline svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sparkline path {
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .conversion-rate {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+
+        @media (min-width: 480px) {
+            .price-row {
+                flex-direction: row;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .sparkline-container {
+                width: 120px;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Gustavo Code</h1>
+    
+    <blockquote>
+        <p>"Vocês viram? Vêem o histórico? Viram alguma coisa? Me parece que estou tentando lhes contar um sonho – fazendo uma tentativa inútil, porque nenhum relato de sonho pode transmitir a sensação de sonho, aquela mistura de absurdo, surpresa e espanto numa excitação de revolta tentando se impôs, aquela noção de ser tomado pelo incompreensível que é da própria essência dos sonhos..."</p>
+        <p>Ele ficou em silêncio por alguns instantes.</p>
+        <p>"... Não, é impossível: é impossível transmitir a sensação viva de qualquer época determinada de nossa existência – aquela que constitui a sua verdade, o seu significado, a sua essência sutil e costumante. É impossível. Vivemos, como sonhamos – sozinhos..."</p>
+    </blockquote>
+    
+    <h2>Blog</h2>
+    <ul>
+        <li><a href="bitcoin.html">Bitcoin explicado de um jeito correto e inteligível</a> <span class="post-date">2023-11-20</span></li>
+        <li><a href="olavo.html">Livres mencionados por Olavo de Carvalho</a> <span class="post-date">2023-11-15</span></li>
+        <li><a href="homenagem.html">Antiga homenagem a Olavo de Carvalho</a> <span class="post-date">2023-11-10</span></li>
+        <li><a href="reclamacoes.html">Reclamações sobre o estado atual da tecnologia</a> <span class="post-date">2023-11-05</span></li>
+    </ul>
+    
+    <hr>
+    
+    <h2>Notar</h2>
+    <ul>
+        <li><a href="ipfs.html">Novo IPFS está quebrado?</a> <span class="post-date">2023-11-18</span></li>
+        <li><a href="programming.html">Pequenas críticas de programação</a> <span class="post-date">2023-11-12</span></li>
+        <li><a href="economia.html">Economias descentralizadas</a> <span class="post-date">2023-11-08</span></li>
+        <li><a href="opensource.html">Software open-source que vale a pena</a> <span class="post-date">2023-11-03</span></li>
+    </ul>
+    
+    <!-- Widget de Bitcoin -->
+    <div class="bitcoin-widget-container">
+        <div class="bitcoin-widget">
+            <div class="widget-header">
+                <div class="bitcoin-icon">₿</div>
+                <div class="widget-title">Preço Bitcoin</div>
+                <button class="refresh-button" id="refresh-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="price-container">
+                <div class="price-row">
+                    <div class="currency-row">
+                        <div class="currency">
+                            <div class="currency-flag">
+                                <img src="https://flagcdn.com/us.svg" alt="USD" loading="lazy">
+                            </div>
+                            <div class="currency-name">Dólar Americano</div>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-value" id="usd-price">Carregando...</div>
+                            <div class="price-change" id="usd-change">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                                ...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline-container">
+                        <div class="sparkline">
+                            <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                                <path d="M0,40 C10,30 20,35 30,20 C40,25 50,10 60,15 C70,5 80,20 90,10 C100,15 100,40 100,40" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="price-row">
+                    <div class="currency-row">
+                        <div class="currency">
+                            <div class="currency-flag">
+                                <img src="https://flagcdn.com/br.svg" alt="BRL" loading="lazy">
+                            </div>
+                            <div class="currency-name">Real Brasileiro</div>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-value" id="brl-price">Carregando...</div>
+                            <div class="price-change" id="brl-change">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                                ...
+                            </div>
+                            <div class="conversion-rate" id="conversion-rate">1 USD = R$0.00</div>
+                        </div>
+                    </div>
+                    <div class="sparkline-container">
+                        <div class="sparkline">
+                            <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                                <path d="M0,10 C10,20 20,15 30,30 C40,25 50,40 60,35 C70,45 80,30 90,40 C100,35 100,10 100,10" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="widget-footer">
+                Dados: <span id="update-time">carregando...</span> | 
+                <a href="https://gustavocode.com.br" target="_blank">gustavocode.com.br</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        © 2025 Gustavo Code. Todos os direitos reservados.
+        <div class="social-links">
+            <a href="https://twitter.com/gustavocode" target="_blank">X (Twitter)</a>
+            <a href="https://youtube.com/gustavocode" target="_blank">YouTube</a>
+            <a href="https://snort.social/p/npub1gustavocode" target="_blank">Nostr</a>
+        </div>
+    </footer>
+
+    <script>
+        // Elementos do DOM
+        const refreshBtn = document.getElementById('refresh-btn');
+        const usdPriceElement = document.getElementById('usd-price');
+        const brlPriceElement = document.getElementById('brl-price');
+        const usdChangeElement = document.getElementById('usd-change');
+        const brlChangeElement = document.getElementById('brl-change');
+        const updateTimeElement = document.getElementById('update-time');
+        const conversionRateElement = document.getElementById('conversion-rate');
+
+        // Taxa de câmbio USD-BRL
+        let exchangeRate = 5.0;
+
+        // Função para formatar números
+        function formatNumber(number, decimals = 2) {
+            return new Intl.NumberFormat('pt-BR', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            }).format(number);
+        }
+
+        // Função para atualizar a data/hora
+        function updateDateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            updateTimeElement.textContent = `${timeString} - ${dateString}`;
+        }
+
+        // Função para buscar dados da API
+        async function fetchBitcoinData() {
+            try {
+                refreshBtn.classList.add('loading');
+                
+                // 1. Busca o preço do Bitcoin em USD
+                const btcResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+                const btcData = await btcResponse.json();
+                
+                // 2. Busca a taxa de câmbio USD-BRL
+                const exchangeResponse = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+                const exchangeData = await exchangeResponse.json();
+                exchangeRate = parseFloat(exchangeData.USDBRL.bid);
+                
+                // Processa os dados
+                const btcUsdPrice = btcData.bitcoin.usd;
+                const btcUsdChange = btcData.bitcoin.usd_24h_change;
+                const btcBrlPrice = btcUsdPrice * exchangeRate;
+                
+                // Atualiza a UI
+                usdPriceElement.textContent = `$${formatNumber(btcUsdPrice)}`;
+                brlPriceElement.textContent = `R$ ${formatNumber(btcBrlPrice)}`;
+                
+                // Atualiza as variações percentuais
+                updateChangeElement(usdChangeElement, btcUsdChange);
+                
+                // Como a API não fornece a variação em BRL, calculamos baseado no USD
+                const brlChange = btcUsdChange; // Simplificação
+                updateChangeElement(brlChangeElement, brlChange);
+                
+                // Atualiza a taxa de câmbio
+                conversionRateElement.textContent = `1 USD = R$${formatNumber(exchangeRate)}`;
+                
+                // Atualiza a data/hora
+                updateDateTime();
+                
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+                updateTimeElement.textContent = 'Erro ao atualizar';
+            } finally {
+                refreshBtn.classList.remove('loading');
+            }
+        }
+
+        // Função para atualizar o elemento de variação
+        function updateChangeElement(element, change) {
+            const isPositive = change >= 0;
+            const icon = isPositive ? 
+                `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>` :
+                `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>`;
+            
+            element.innerHTML = `${icon} ${Math.abs(change).toFixed(2)}%`;
+            element.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
+        }
+
+        // Event listeners
+        refreshBtn.addEventListener('click', fetchBitcoinData);
+
+        // Busca inicial
+        fetchBitcoinData();
+
+        // Atualiza a cada 60 segundos
+        setInterval(fetchBitcoinData, 60000);
+    </script>
+</body>
+</html>
